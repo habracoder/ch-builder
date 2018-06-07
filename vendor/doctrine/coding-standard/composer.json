@@ -1,0 +1,28 @@
+{
+    "name": "doctrine/coding-standard",
+    "type": "phpcodesniffer-standard",
+    "description": "Doctrine Coding Standard",
+    "keywords": ["doctrine", "coding", "standard", "cs", "code", "style", "sniffer"],
+    "homepage": "http://www.doctrine-project.org",
+    "license": "MIT",
+    "authors": [
+        {"name": "Benjamin Eberlei", "email": "kontakt@beberlei.de"},
+        {"name": "Steve Müller", "email": "st.mueller@dzh-online.de"}
+    ],
+    "autoload": {
+       "psr-4": {
+           "Doctrine\\Sniffs\\": "lib/Doctrine/Sniffs"
+       }
+    },
+    "require": {
+        "php": "^7.1",
+        "squizlabs/php_codesniffer": "^3.2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.2",
+        "slevomat/coding-standard": "^4.5.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    }
+}
