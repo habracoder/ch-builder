@@ -2,21 +2,16 @@
 namespace CHBuilder\Functions;
 
 /**
- * Class Any
+ * Class Max
  * @package CHBuilder\Functions
  */
-class Any extends AggregateFunction
+class Max extends AggregateFunction
 {
     /**
      * @return string
      */
     public function getSQL(): string
     {
-        return "any({$this->column})";
-    }
-
-    public function __toString()
-    {
-        return $this->getSQL();
+        return "max({$this->column})";
     }
 }

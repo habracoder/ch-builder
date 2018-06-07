@@ -3,12 +3,15 @@
 namespace CHBuilder;
 
 use CHBuilder\Components\Select;
-use CHBuilder\Functions\Any;
-use CHBuilder\Functions\Sum;
+use CHBuilder\Components\SubQuery;
 use ClickHouseDB\Client;
 
 class Builder
 {
+    /**
+     * @var Select
+     */
+    private $select;
     private $client;
     private $query;
 
@@ -17,26 +20,37 @@ class Builder
         $this->query = new Query($client);
     }
 
-    public function createBuilder()
+    /**
+     * @return Builder
+     */
+    public function createBuilder(): self
     {
         return new self($this->client);
     }
 
     /**
-     * @param
+     * @param mixed ...$params
      * @return $this
+     * @throws \Exception
      */
     public function select(... $params)
     {
-        $select = new Select($params);
-
+        $this->select = new Select($params);
 
         return $this;
     }
 
-    public function as(FunctionInterface $expression, $name)
+    /**
+     * @return Expression
+     */
+    public function expr()
     {
-        return $expression->getSQL() . ' AS ' . "`{$name}`";
+        return Expression::getInstance();
+    }
+
+    public function toSQL(): string
+    {
+        return "SELECT" . $this->select->getSQL();
     }
 
     public function from($table)
@@ -47,6 +61,13 @@ class Builder
 
         $this->query->setTable($table);
         return $this;
+    }
+
+    public function createSubQuery()
+    {
+        $qb = new self($this->client);
+
+        new SubQuery();
     }
 
     public function where()

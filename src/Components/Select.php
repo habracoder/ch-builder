@@ -4,6 +4,10 @@ namespace CHBuilder\Components;
 
 use CHBuilder\ComponentInterface;
 
+/**
+ * Class Select
+ * @package CHBuilder\Components
+ */
 class Select implements ComponentInterface
 {
     private $fields;
@@ -27,7 +31,7 @@ class Select implements ComponentInterface
     {
         $result = new Fields;
 
-        foreach ($fields as $index => $field) {
+        foreach ($fields as $field) {
             if (is_array($field)) {
                 return $this->convertRawData($field);
             }
@@ -35,11 +39,6 @@ class Select implements ComponentInterface
 
             if ($field instanceof Field) {
                 $result->addField($field);
-                continue;
-            }
-
-            if (is_string($index)) {
-                $result->addField(new Field($index, $field));
                 continue;
             }
 
@@ -51,9 +50,11 @@ class Select implements ComponentInterface
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function getSQL(): string
     {
-        // TODO: Implement getSQL() method.
-        return '';
+        return $this->fields->getSQL();
     }
 }
