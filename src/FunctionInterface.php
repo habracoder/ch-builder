@@ -8,5 +8,5 @@ namespace CHBuilder;
  */
 interface FunctionInterface
 {
-    public function getSQL(): string;
+    public function __toString(): string;
 }

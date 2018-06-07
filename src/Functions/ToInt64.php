@@ -22,7 +22,7 @@ class ToInt64 implements FunctionInterface
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "toInt64({$this->column})";
     }

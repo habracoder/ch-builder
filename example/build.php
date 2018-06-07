@@ -56,9 +56,9 @@ $qb->select(
 
 
 var_dump(
-    $query->getSQL()
+    $query->__toString()
 );
 
 var_dump(
-    $query->getResult()
+    $query->__toString()
 );

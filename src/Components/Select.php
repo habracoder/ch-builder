@@ -10,6 +10,9 @@ use CHBuilder\ComponentInterface;
  */
 class Select implements ComponentInterface
 {
+    /**
+     * @var Fields
+     */
     private $fields;
 
     /**
@@ -53,8 +56,8 @@ class Select implements ComponentInterface
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
-        return $this->fields->getSQL();
+        return $this->fields;
     }
 }

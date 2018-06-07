@@ -10,7 +10,7 @@ class AnyLast extends AggregateFunction
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "anyLast({$this->column})";
     }

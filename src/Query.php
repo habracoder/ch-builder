@@ -32,7 +32,7 @@ class Query
         return $sth->rows();
     }
 
-    public function getSQL()
+    public function __toString()
     {
         return $this->sql;
     }

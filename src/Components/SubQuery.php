@@ -6,9 +6,9 @@ use CHBuilder\ComponentInterface;
 
 class SubQuery implements ComponentInterface
 {
-    public function getSQL(): string
+    public function __toString(): string
     {
-        // TODO: Implement getSQL() method.
+        // TODO: Implement __toString() method.
         return '';
     }
 }

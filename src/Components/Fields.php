@@ -73,12 +73,12 @@ class Fields implements \Iterator, ComponentInterface
         return $this;
     }
 
-    public function getSQL(): string
+    public function __toString(): string
     {
         $sql = [];
 
         foreach ($this->fields as $field) {
-            $sql[] = $field->getSQL();
+            $sql[] = (string) $field;
         }
 
         return implode(',', $sql);

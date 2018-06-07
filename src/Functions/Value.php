@@ -1,13 +1,13 @@
 <?php
 namespace CHBuilder\Functions;
 
-use CHBuilder\FunctionInterface;
+use CHBuilder\StringAble;
 
 /**
  * Class Value
  * @package CHBuilder\Functions
  */
-class Value implements FunctionInterface
+class Value implements StringAble
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ class Value implements FunctionInterface
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return $this->value;
     }

@@ -3,10 +3,10 @@
 namespace CHBuilder;
 
 /**
- * Interface ComponentInterface
+ * Interface StringAble
  * @package CHBuilder
  */
-interface ComponentInterface
+interface StringAble
 {
     /**
      * @return string

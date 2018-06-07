@@ -20,6 +20,6 @@ $fields
 
 
 var_dump(
-    $fields->getSQL()
+    $fields->__toString()
 );
 

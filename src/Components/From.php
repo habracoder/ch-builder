@@ -2,10 +2,12 @@
 
 namespace CHBuilder\Components;
 
-class From implements \CHBuilder\ComponentInterface
+use CHBuilder\ComponentInterface;
+
+class From implements ComponentInterface
 {
-    public function getSQL(): string
+    public function __toString(): string
     {
-        return '';
+        return 'FROM';
     }
 }

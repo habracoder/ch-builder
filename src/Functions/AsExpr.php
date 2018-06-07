@@ -26,7 +26,7 @@ class AsExpr implements FunctionInterface
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return $this->input . ' AS ' . "`{$this->name}`";
     }

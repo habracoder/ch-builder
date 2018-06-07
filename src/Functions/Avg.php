@@ -10,7 +10,7 @@ class Avg extends AggregateFunction
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "avg({$this->column})";
     }

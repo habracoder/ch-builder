@@ -10,13 +10,8 @@ class Any extends AggregateFunction
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "any({$this->column})";
-    }
-
-    public function __toString()
-    {
-        return $this->getSQL();
     }
 }

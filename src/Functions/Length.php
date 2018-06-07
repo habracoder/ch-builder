@@ -10,7 +10,7 @@ class Length extends AggregateFunction
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "length({$this->column})";
     }

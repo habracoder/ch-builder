@@ -6,7 +6,11 @@ use CHBuilder\Components\Select;
 use CHBuilder\Components\SubQuery;
 use ClickHouseDB\Client;
 
-class Builder
+/**
+ * Class Builder
+ * @package CHBuilder
+ */
+class Builder implements StringAble
 {
     /**
      * @var Select
@@ -48,11 +52,6 @@ class Builder
         return Expression::getInstance();
     }
 
-    public function toSQL(): string
-    {
-        return "SELECT" . $this->select->getSQL();
-    }
-
     public function from($table)
     {
         if ($table instanceof Query) {
@@ -78,5 +77,10 @@ class Builder
     public function getQuery()
     {
         return $this->query;
+    }
+
+    public function __toString(): string
+    {
+        return "SELECT {$this->select}";
     }
 }

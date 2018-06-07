@@ -26,7 +26,7 @@ class SumIf extends AggregateFunction
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         return "sumIf({$this->column}, $this->condition)";
     }

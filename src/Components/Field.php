@@ -40,7 +40,7 @@ class Field implements ComponentInterface
     /**
      * @return string
      */
-    public function getSQL(): string
+    public function __toString(): string
     {
         if ($this->expression) {
             return $this->expression . ' AS ' . $this->name;
