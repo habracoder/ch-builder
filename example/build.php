@@ -15,10 +15,11 @@ $client = new ClickHouseDB\Client([
 $i = new \CHBuilder\Instance($client);
 
 $qb = $i->createQueryBuilder();
+$qb->expr();
 
 $qb->select(
     $qb->as($qb->any('uid'), 'uid'),
-    $qb->sum()
+    $qb->as($qb->sum('wages'), 'wages')
 );
 
 $qb = new \CHBuilder\Builder($client);

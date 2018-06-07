@@ -39,15 +39,6 @@ class Builder
         return $expression->getSQL() . ' AS ' . "`{$name}`";
     }
 
-    /**
-     * @param $value
-     * @return Any
-     */
-    public function any(string $value)
-    {
-        return new Any($value);
-    }
-
     public function from($table)
     {
         if ($table instanceof Query) {
@@ -61,20 +52,6 @@ class Builder
     public function where()
     {
         return $this;
-    }
-
-    /**
-     * @param string $field
-     * @return Sum
-     */
-    public function sum(string $field)
-    {
-        return new Sum($field);
-    }
-
-    public function sumIf(string $field)
-    {
-
     }
 
     public function getQuery()

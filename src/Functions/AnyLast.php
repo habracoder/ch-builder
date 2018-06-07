@@ -2,16 +2,16 @@
 namespace CHBuilder\Functions;
 
 /**
- * Class Sum
+ * Class AnyLast
  * @package CHBuilder\Functions
  */
-class Sum extends AggregateFunction
+class AnyLast extends AggregateFunction
 {
     /**
      * @return string
      */
     public function getSQL(): string
     {
-        return "sum({$this->column})";
+        return "anyLast({$this->column})";
     }
 }

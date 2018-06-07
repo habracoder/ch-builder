@@ -1,17 +1,18 @@
 <?php
+
 namespace CHBuilder\Functions;
 
 /**
- * Class Sum
+ * Class Count
  * @package CHBuilder\Functions
  */
-class Sum extends AggregateFunction
+class Count extends AggregateFunction
 {
     /**
      * @return string
      */
     public function getSQL(): string
     {
-        return "sum({$this->column})";
+        return "count({$this->column})";
     }
 }
