@@ -17,21 +17,6 @@ $i = new \CHBuilder\Instance($client);
 $qb = $i->createQueryBuilder();
 $ex = $qb->expr();
 
-$qb->select(
-    $ex->as($ex->any('uid'), 'uid'),
-    $ex->as($ex->sum('wages'), 'wages'),
-    $ex->as($ex->sumIf('wages', 'type = 1'), 'wages')
-)->from('widget_statistics_shows_rtb');
-
-$qb = new \CHBuilder\Builder($client);
-
-$qb->createBuilder()
-    ->select(
-        'uid'
-    )->from(
-        $qb->createBuilder()->select('uid')->getQuery()
-    );
-
 /*
 
 
@@ -48,17 +33,13 @@ SELECT CounterID, 2 AS table, sum(Sign) AS c
 
  */
 
-$qb->select(
-    'CounterID',
-    $ex->as($ex->value(1), 'table'),
-    $ex->as($ex->toInt64($ex->count()), 'c')
-);
 
-
-var_dump(
-    $query->__toString()
-);
+$qb->select('uid')
+    ->from('hits')
+    ->where(
+        $qb->expr()->eq('uid', 123)
+    );
 
 var_dump(
-    $query->__toString()
+    $qb->__toString()
 );

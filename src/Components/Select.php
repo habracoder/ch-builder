@@ -58,6 +58,6 @@ class Select implements ComponentInterface
      */
     public function __toString(): string
     {
-        return $this->fields;
+        return "SELECT {$this->fields}";
     }
 }

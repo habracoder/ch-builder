@@ -2,8 +2,12 @@
 
 namespace CHBuilder;
 
+use CHBuilder\Components\From;
+use CHBuilder\Components\FromQuery;
+use CHBuilder\Components\FromTable;
 use CHBuilder\Components\Select;
-use CHBuilder\Components\SubQuery;
+use CHBuilder\Components\Where;
+use CHBuilder\Conditions\ConditionInterface;
 use ClickHouseDB\Client;
 
 /**
@@ -13,15 +17,31 @@ use ClickHouseDB\Client;
 class Builder implements StringAble
 {
     /**
-     * @var Select
+     * @var Select[]
      */
-    private $select;
+    private $select = [];
+
+    /**
+     * @var From[]
+     */
+    private $from = [];
+
+    /**
+     * @var Where[]
+     */
+    private $where = [];
+
+    private $union = false;
     private $client;
     private $query;
+    private $hash;
+    private $hashes = [];
 
     public function __construct(Client $client)
     {
         $this->query = new Query($client);
+        $this->hash = uniqid();
+        $this->hashes[] = $this->hash;
     }
 
     /**
@@ -39,7 +59,7 @@ class Builder implements StringAble
      */
     public function select(... $params)
     {
-        $this->select = new Select($params);
+        $this->select[$this->hash] = new Select($params);
 
         return $this;
     }
@@ -52,35 +72,65 @@ class Builder implements StringAble
         return Expression::getInstance();
     }
 
-    public function from($table)
+    /**
+     * @param Builder|string $tableOrBuilder
+     * @return $this
+     * @throws \Exception
+     */
+    public function from($tableOrBuilder)
     {
-        if ($table instanceof Query) {
-            $this->query->setFromSelect();
+        if ($tableOrBuilder instanceof Builder) {
+            $this->from[$this->hash] = new FromQuery($tableOrBuilder);
+            return $this;
         }
 
-        $this->query->setTable($table);
+        if (is_string($tableOrBuilder)) {
+            $this->from[$this->hash] = new FromTable($tableOrBuilder);
+            return $this;
+        }
+
+        throw new \Exception('Wrong table');
+    }
+
+    /**
+     * @return Builder
+     */
+    public function unionAll(): self
+    {
+        $this->union = true;
+        $this->hash = uniqid();
+        $this->hashes[] = $this->hash;
         return $this;
     }
 
-    public function createSubQuery()
+    /**
+     * @param ConditionInterface|string $expr
+     * @return $this
+     */
+    public function where($expr)
     {
-        $qb = new self($this->client);
-
-        new SubQuery();
-    }
-
-    public function where()
-    {
+        $this->where[$this->hash] = new Where($expr);
         return $this;
     }
 
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
-        return "SELECT {$this->select}";
+        if (!$this->union) {
+            $sql = $this->select[$this->hash] . ' ' . $this->from[$this->hash];
+        } else {
+            $queries = [];
+            foreach ($this->hashes as $hash) {
+                $select = $this->select[$hash];
+                $table = $this->from[$hash];
+
+                $queries[] = "{$select} {$table}";
+            }
+            $sql = implode(' UNION ALL ', $queries);
+        }
+
+        return $sql;
     }
 }
