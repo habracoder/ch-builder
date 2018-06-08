@@ -6,13 +6,13 @@ namespace CHBuilder\Operators;
  * Class Greater
  * @package CHBuilder\Operators
  */
-class Greater extends AbstractOperator
+class Like extends AbstractOperator
 {
     /**
      * @return string
      */
     public function __toString(): string
     {
-        return "{$this->a} > {$this->b}";
+        return "{$this->a} LIKE '{$this->b}'";
     }
 }
