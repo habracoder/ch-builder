@@ -28,6 +28,10 @@ class FromQuery extends From
      */
     public function __toString(): string
     {
+        if ($this->database) {
+            $this->queryBuilder->database($this->database);
+        }
+
         return "FROM ({$this->queryBuilder})";
     }
 }

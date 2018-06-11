@@ -8,15 +8,17 @@
 
 namespace CHBuilder;
 
-
+use CHBuilder\Functions\AndX;
 use CHBuilder\Functions\Any;
 use CHBuilder\Functions\AsExpr;
 use CHBuilder\Functions\Count;
 use CHBuilder\Functions\Length;
+use CHBuilder\Functions\OrX;
 use CHBuilder\Functions\Sum;
 use CHBuilder\Functions\SumIf;
 use CHBuilder\Functions\ToInt64;
 use CHBuilder\Functions\Value;
+use CHBuilder\Operators;
 
 /**
  * Class Expression
@@ -102,21 +104,6 @@ class Expression
     }
 
     /**
-     * @param Builder ...$builders
-     * @return string
-     */
-    public function unionAll(Builder ... $builders)
-    {
-        $queries = [];
-
-        foreach ($builders as $builder) {
-            $queries[] = $builder->toSQL();
-        }
-
-        return implode(" UNION ALL ", $queries);
-    }
-
-    /**
      * @param FunctionInterface $expression
      * @param $name
      * @return AsExpr
@@ -133,5 +120,143 @@ class Expression
     public function any(string $column): Any
     {
         return new Any($column);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Equals
+     */
+    public function eq($a, $b): Operators\Equals
+    {
+        return new Operators\Equals($a, $b);
+    }
+
+    /**
+     * @param mixed ...$conditions
+     * @return AndX
+     */
+    public function andX(... $conditions): AndX
+    {
+        return new AndX($conditions);
+    }
+
+    /**
+     * @param mixed ...$conditions
+     * @return OrX
+     */
+    public function orX(... $conditions): OrX
+    {
+        return new OrX($conditions);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Less
+     */
+    public function lt($a, $b): Operators\Less
+    {
+        return new Operators\Less($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Greater
+     */
+    public function gt($a, $b): Operators\Greater
+    {
+        return new Operators\Greater($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\LessOrEquals
+     */
+    public function lte($a, $b): Operators\LessOrEquals
+    {
+        return new Operators\LessOrEquals($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\GreaterOrEquals
+     */
+    public function gte($a, $b): Operators\GreaterOrEquals
+    {
+        return new Operators\GreaterOrEquals($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Like
+     */
+    public function like($a, $b): Operators\Like
+    {
+        return new Operators\Like($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\NotLike
+     */
+    public function nLike($a, $b): Operators\NotLike
+    {
+        return new Operators\NotLike($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Minus
+     */
+    public function minus($a, $b): Operators\Minus
+    {
+        return new Operators\Minus($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Modulo
+     */
+    public function modulo($a, $b): Operators\Modulo
+    {
+        return new Operators\Modulo($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Multiply
+     */
+    public function multiple($a, $b): Operators\Multiply
+    {
+        return new Operators\Multiply($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\Divide
+     */
+    public function divide($a, $b): Operators\Divide
+    {
+        return new Operators\Divide($a, $b);
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return Operators\In
+     */
+    public function in($a, $b): Operators\In
+    {
+        return new Operators\In($a, $b);
     }
 }

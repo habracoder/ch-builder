@@ -22,35 +22,46 @@ class Select implements ComponentInterface
      */
     public function __construct(array $fields)
     {
-        $this->fields = $this->convertRawData($fields);
+        $this->fields = new Fields;
+        $this->convertRawData($fields);
     }
 
     /**
      * @param array $fields
-     * @return Fields
      * @throws \Exception
      */
-    public function convertRawData(array $fields): Fields
+    public function addSelect(array $fields)
     {
-        $result = new Fields;
+        $this->convertRawData($fields);
+    }
+
+    /**
+     * @param array $fields
+     * @throws \Exception
+     */
+    public function convertRawData(array $fields): void
+    {
+        if (!$fields) {
+            $this->fields->addField(
+                new Field('*')
+            );
+        }
 
         foreach ($fields as $field) {
             if (is_array($field)) {
-                return $this->convertRawData($field);
+                $this->convertRawData($field);
             }
 
 
             if ($field instanceof Field) {
-                $result->addField($field);
+                $this->fields->addField($field);
                 continue;
             }
 
-            $result->addField(
+            $this->fields->addField(
                 new Field($field)
             );
         }
-
-        return $result;
     }
 
     /**

@@ -22,6 +22,8 @@ class FromTable extends From
      */
     public function __toString(): string
     {
-        return "FROM {$this->tableName}";
+        $selector = $this->database ? "{$this->database}.{$this->tableName}": $this->tableName;
+
+        return "FROM {$selector}";
     }
 }

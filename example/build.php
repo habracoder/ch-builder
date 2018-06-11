@@ -17,28 +17,41 @@ $i = new \CHBuilder\Instance($client);
 $qb = $i->createQueryBuilder();
 $ex = $qb->expr();
 
+$qb->orderBy('uid', 'item')
+    ->orderBy('uid desc', 'item ask')
+    ->orderBy('uid, item desc')
+    ->andOrderBy('sum(wages)')
+    ->orderBy(['uid' => 'desc', 'item' => 'asc']);
+
 /*
 
-
-SELECT CounterID, 1 AS table, toInt64(count()) AS c
-    FROM test.hits
-    GROUP BY CounterID
-
-UNION ALL
-
-SELECT CounterID, 2 AS table, sum(Sign) AS c
-    FROM test.visits
-    GROUP BY CounterID
-    HAVING c > 0
+SELECT * FROM system.parts WHERE active
 
  */
 
+$qb->insert([])->format('CSV');
 
-$qb->select('uid')
-    ->from('hits')
+var_dump((string)$qb);
+
+$qb->select('uid, date')
+    ->distinct()
+    ->from('parts')
+    ->database('system')
     ->where(
-        $qb->expr()->eq('uid', 123)
-    );
+        $ex->andX(
+            $qb->expr()->in('uid', ':widgetUid'),
+            $qb->expr()->eq('composite', ':composite')
+        )
+    )
+    ->setParameter('widgetUid', [12, 13, 14, 15])
+    ->setParameter('composite', 10)
+    ->limit(10, 20)
+    ->orderBy('uid', 'item')
+    ->orderBy('uid desc', 'item ask')
+    ->orderBy('uid, item', 'ask')
+    ->orderBy('uid, item desc')
+    ->orderBy(['uid' => 'desc', 'item' => 'asc'])
+;
 
 var_dump(
     $qb->__toString()

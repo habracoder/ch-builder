@@ -3,6 +3,7 @@ namespace CHBuilder\Components;
 
 use CHBuilder\ComponentInterface;
 use CHBuilder\Conditions\ConditionInterface;
+use CHBuilder\Operators\AbstractOperator;
 
 /**
  * Class Where
@@ -26,8 +27,14 @@ class Where implements ComponentInterface
      */
     public function __toString(): string
     {
-        $conditions = implode(' AND ', $this->expression);
+        if ($this->expression instanceof AbstractOperator) {
+            return "WHERE {$this->expression}";
+        }
 
-        return "WHERE {$conditions}";
+        if (is_iterable($this->expression)) {
+            return "WHERE " . implode(' AND ', $this->expression);
+        }
+
+        return "WHERE {$this->expression}";
     }
 }
