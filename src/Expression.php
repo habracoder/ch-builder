@@ -4,6 +4,7 @@ namespace CHBuilder;
 
 use CHBuilder\Functions\Aggregate\AndX;
 use CHBuilder\Functions\Aggregate\Any;
+use CHBuilder\Functions\Aggregate\Expr;
 use CHBuilder\Functions\AsExpr;
 use CHBuilder\Functions\Aggregate\Count;
 use CHBuilder\Functions\Length;
@@ -105,6 +106,14 @@ class Expression
     public function as(FunctionInterface $expression, string $name)
     {
         return new AsExpr((string)$expression, $name);
+    }
+
+    /**
+     * @return Expr
+     */
+    public function agr()
+    {
+        return new Expr();
     }
 
     /**
