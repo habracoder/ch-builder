@@ -27,7 +27,9 @@ $sql = (string) $qb
     ->database('analytics');
 
 $sql = (string) $qb
-    ->select('date', 'id', 'clicks')
+    ->select(
+        $qb->expr()->agr()->any('uid')
+    )
     ->from('statistic_clicks')
     ->database('analytics')
     ->where(
