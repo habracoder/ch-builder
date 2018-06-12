@@ -1,5 +1,5 @@
 <?php
-namespace CHBuilder\Functions;
+namespace CHBuilder\Functions\Aggregate;
 
 /**
  * Class Count

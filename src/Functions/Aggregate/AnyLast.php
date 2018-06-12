@@ -1,17 +1,18 @@
 <?php
-namespace CHBuilder\Functions;
+
+namespace CHBuilder\Functions\Aggregate;
 
 /**
- * Class Sum
+ * Class AnyLast
  * @package CHBuilder\Functions
  */
-class Sum extends AggregateFunction
+class AnyLast extends AggregateFunction
 {
     /**
      * @return string
      */
     public function __toString(): string
     {
-        return "sum({$this->column})";
+        return "anyLast({$this->column})";
     }
 }

@@ -1,17 +1,18 @@
 <?php
-namespace CHBuilder\Functions;
+
+namespace CHBuilder\Functions\Aggregate;
 
 /**
- * Class AnyLast
+ * Class Max
  * @package CHBuilder\Functions
  */
-class AnyLast extends AggregateFunction
+class Max extends AggregateFunction
 {
     /**
      * @return string
      */
     public function __toString(): string
     {
-        return "anyLast({$this->column})";
+        return "max({$this->column})";
     }
 }

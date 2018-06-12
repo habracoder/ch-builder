@@ -1,21 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habracoder
- * Date: 6/7/18
- * Time: 10:35 PM
- */
-
+declare(strict_types = 1);
 namespace CHBuilder;
 
-use CHBuilder\Functions\AndX;
-use CHBuilder\Functions\Any;
+use CHBuilder\Functions\Aggregate\AndX;
+use CHBuilder\Functions\Aggregate\Any;
 use CHBuilder\Functions\AsExpr;
-use CHBuilder\Functions\Count;
+use CHBuilder\Functions\Aggregate\Count;
 use CHBuilder\Functions\Length;
 use CHBuilder\Functions\OrX;
-use CHBuilder\Functions\Sum;
-use CHBuilder\Functions\SumIf;
+use CHBuilder\Functions\Aggregate\Sum;
+use CHBuilder\Functions\Aggregate\SumIf;
 use CHBuilder\Functions\ToInt64;
 use CHBuilder\Functions\Value;
 use CHBuilder\Operators;
@@ -51,7 +45,7 @@ class Expression
 
     /**
      * @param string $column
-     * @return Sum
+     * @return \CHBuilder\Functions\Aggregate\Sum
      */
     public function sum(string $column): Sum
     {
@@ -61,7 +55,7 @@ class Expression
     /**
      * @param string $column
      * @param string $condition
-     * @return SumIf
+     * @return \CHBuilder\Functions\Aggregate\SumIf
      */
     public function sumIf(string $column, string $condition): SumIf
     {
@@ -96,7 +90,7 @@ class Expression
 
     /**
      * @param string $value
-     * @return Value
+     * @return \CHBuilder\Functions\Aggregate\Value
      */
     public function value(string $value): Value
     {
@@ -110,12 +104,12 @@ class Expression
      */
     public function as(FunctionInterface $expression, string $name)
     {
-        return new AsExpr($expression, $name);
+        return new AsExpr((string)$expression, $name);
     }
 
     /**
      * @param string $column
-     * @return Any
+     * @return \CHBuilder\Functions\Aggregate\Any
      */
     public function any(string $column): Any
     {
