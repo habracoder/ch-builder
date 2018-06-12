@@ -1,31 +1,25 @@
 {
   "name": "habracoder/clickhouse-builder",
   "type": "library",
-  "description": "PHP ClickHouse Client",
+  "version" : "0.0.0.1",
+  "description": "PHP ClickHouse QueryBuilder",
   "keywords": ["clickhouse", "driver", "client", "curl", "http", "HTTP client", "php"],
-  "homepage": "https://github.com/smi2/phpClickHouse",
+  "homepage": "https://github.com/habracoder/ch-builder",
   "license": "MIT",
   "authors": [
     {
-      "name": "Igor Strykhar",
-      "email": "isublimity@gmail.com",
-      "homepage": "https://github.com/isublimity"
+      "name": "Alexander Kobylyansky",
+      "email": "habracoder@gmail.com",
+      "homepage": "https://github.com/habracoder"
     }
   ],
   "require": {
     "php": "^7.1",
-    "ext-curl": "*",
     "smi2/phpclickhouse": "^0.18.05"
   },
   "autoload": {
     "psr-4": {
       "CHBuilder\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "ClickHouseDB\\Tests\\": "tests/",
-      "ClickHouseDB\\Example\\": "example/"
     }
   }
 }
