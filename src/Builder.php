@@ -20,10 +20,10 @@ class Builder
 
     /**
      * @param mixed ...$params
-     * @return $this
+     * @return SelectBuilder
      * @throws \Exception
      */
-    public function select(... $params)
+    public function select(... $params): SelectBuilder
     {
         return new SelectBuilder($params);
     }

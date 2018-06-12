@@ -17,6 +17,26 @@ $i = new \CHBuilder\Instance($client);
 $qb = $i->createQueryBuilder();
 $ex = $qb->expr();
 
+$data = [
+    ['id' => 123, 'clicks' => 1],
+    ['id' => 124, 'clicks' => 1],
+];
+$sql = (string) $qb
+    ->insert($data)
+    ->into('statistic_clicks')
+    ->database('analytics');
+
+$sql = (string) $qb
+    ->select('date', 'id', 'clicks')
+    ->from('statistic_clicks')
+    ->database('analytics')
+    ->where(
+        $qb->expr()->andX(
+            $qb->expr()->eq('id', 123),
+            $qb->expr()->gt('clicks', 10)
+        )
+    );
+
 $qb->orderBy('uid', 'item')
     ->orderBy('uid desc', 'item ask')
     ->orderBy('uid, item desc')
